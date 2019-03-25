@@ -1,0 +1,22 @@
+*{margin: 0;padding: 0;}
+a{text-decoration: none;}
+kbd{
+  border: 1px solid red;
+  width: 2em;
+  height: 2em;
+  display: inline-block;
+  text-transform: uppercase;
+}
+main {
+  text-align:center;
+}
+#jiju {
+  display: inline-block;
+}
+#jiju > div:nth-child(2){
+  margin-left: 1em;
+}
+#jiju > div:nth-child(3){
+  margin-left: 2em;
+}
+
