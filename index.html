@@ -48,19 +48,18 @@
       var button = tag('button')
       button.textContent = '编辑'
       button.id = id
-      button.onclick = function (jinahzhi) {
+      button.onclick = function (jianzhi) {
         //jianzhi['target']就是用户点击的元素
-        var button2 = jinahzhi['target']
+        var button2 = jianzhi['target']
         var img2 = button2.previouSibling
         var key = button2['id'] // qwert
         var userWeb = prompt('给我一个网址')
         hash[key] = userWeb // hash变更 
-        img2.src = 'http://' + userWeb + '/favicon.ico'
+        img2.src = 'http://'+userWeb + '/favicon.ico'
         img2.onerror = function (tihuan) {
           tihuan.target.src = '//i.loli.net/2017/11/10/5a05afbc5e183.png'
         }
         localStorage.setItem('bianjizhi', JSON.stringify(hash))
-        console.log(hash)
       }
       return button
     }
@@ -131,8 +130,8 @@
     }
 
     function listenToUser(hash) {
-      document.onkeypress = function (jinahzhi) {
-        var key = jinahzhi['key']
+      document.onkeypress = function (jianzhi) {
+        var key = jianzhi['key']
         var website = hash[key]
         window.open('http://' + website, '_blank')
       }
