@@ -12,28 +12,42 @@
   </main>
   <footer></footer>
   <script>
-    var keys = {
-      0: ['q','w','e','r','t','y','u','i','o','p'],
-      1: ['a','s','d','f','g','h','j','k','l'],
-      2: ['z','x','c','v','b','n','m'],
+    keys = {
+      0: ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
+      1: ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
+      2: ['z', 'x', 'c', 'v', 'b', 'n', 'm'],
       length: 3
     }
-    var hash = {
+    hash = {
       q: 'qq.com',
       w: 'weibo.com'
     }
-
-
-
+    hashInLocalStorage = JSON.parse(localStorage.getItem('bianjizhi') || 'null')
+    if (hashInLocalStorage) {
+      hash = hashInLocalStorage
+    }
+    //遍历 keys,生成kbd标签
     index = 0
-    while(index<keys['length']){
+    while (index < keys['length']) {// 0 1 2
       lijun = document.createElement('div')
       jiju.appendChild(lijun)
-      row = keys[index]
+      row = keys[index]// 第一个数组 第二个数组 第三个数组
       index2 = 0
-      while(index2< row['length']){
+      while(index2< row['length']){// 0-9 0-8 0-6
         laotan = document.createElement('kbd')
         laotan.textContent = row[index2]
+        button1 = document.createElement('button')
+        button1.textContent = '编辑'
+        button1.id = row[index2]
+        button1.onclick = function(jinahzhi){
+          //jianzhi['target']就是用户点击的元素
+          key = jinahzhi['target']['id']// qwert
+          userWeb = prompt('给我一个网址')
+          hash[key] = userWeb// hash变更 
+          localStorage.setItem('bianjizhi', JSON.stringify(hash))
+          console.log(hash)
+        }
+        laotan.appendChild(button1)
         lijun.appendChild(laotan) 
         index2 = index2 + 1 
       }
