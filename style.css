@@ -16,17 +16,60 @@ kbd > button{
 }
 kbd:hover > button{
   display: inline-block;
+
+}
+body{
+  background: url(./wall2.jpg) rgb(197, 190, 190) no-repeat center center;
+  background-size: cover;
 }
 main {
   text-align:center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
-#jiju {
+#main {
   display: inline-block;
 }
-#jiju > div:nth-child(2){
-  margin-left: 2em;
+#main > div:nth-child(2){
+  margin-left: -22px;
 }
-#jiju > div:nth-child(3){
-  margin-left: 4em;
+#main > div:nth-child(3){
+  margin-left: -80px;
+}
+.wrapper{
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px; 
+}
+.key{
+  width: 50px;
+  height: 40px;
+  background: linear-gradient(to bottom, #292929 0%,#111111 100%);
+  border: 1px solid #373737;
+  color: #c5c5c5;
+  border-radius: 6px;
+  box-shadow: 0 0 0 1px #1a1b1c, 0 0 2px #1f2020, 0 3px 0 2px #080808;
+  font-size: 14px;
+  font-family: keyboard, "Arial Rounded", Helvetica, Arial, sans-serif;
+  position: relative;
+}
+.row{
+  margin: 20px;
+}
+.row .key{
+  margin: 0 10px;
+}
+.key img{
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  left: 4px;
+  bottom: 2px;
+}
+.key .text{
+  position: absolute;
+  left: 4px;
+  top: 2px;
 }
 

@@ -8,7 +8,7 @@
 <body>
   <header></header>
   <main>
-    <div class="wrapper" id="jiju"></div>
+    <div class="wrapper" id="main"></div>
   </main>
   <footer></footer>
   <script>
@@ -29,17 +29,24 @@
     //遍历 keys,生成kbd标签
     index = 0
     while (index < keys['length']) {// 0 1 2
-      lijun = document.createElement('div')
-      jiju.appendChild(lijun)
+      div = document.createElement('div')
+      div.className = 'row'
+      main.appendChild(div)
       row = keys[index]// 第一个数组 第二个数组 第三个数组
       index2 = 0
       while(index2< row['length']){// 0-9 0-8 0-6
-        laotan = document.createElement('kbd')
-        laotan.textContent = row[index2]
-        button1 = document.createElement('button')
-        button1.textContent = '编辑'
-        button1.id = row[index2]
-        button1.onclick = function(jinahzhi){
+        kbd = document.createElement('kbd')
+        span = document.createElement('span')
+        span.textContent = row[index2]
+        span.className = "text"
+        kbd.appendChild(span)
+        kbd.className = 'key'
+        button = document.createElement('button')
+        button.textContent = '编辑'
+        button.id = row[index2]
+        img = document.createElement('img')
+        img.src = 'http://'+hash[row[index2]]+ '/favicon.ico'
+        button.onclick = function(jinahzhi){
           //jianzhi['target']就是用户点击的元素
           key = jinahzhi['target']['id']// qwert
           userWeb = prompt('给我一个网址')
@@ -47,8 +54,9 @@
           localStorage.setItem('bianjizhi', JSON.stringify(hash))
           console.log(hash)
         }
-        laotan.appendChild(button1)
-        lijun.appendChild(laotan) 
+        kbd.appendChild(img)
+        kbd.appendChild(button)
+        div.appendChild(kbd) 
         index2 = index2 + 1 
       }
       index = index+1
