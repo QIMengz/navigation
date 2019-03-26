@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-Hans">
+
 <head>
   <meta charset="UTF-8">
   <title>我的导航</title>
   <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
   <header></header>
   <main>
@@ -12,61 +14,130 @@
   </main>
   <footer></footer>
   <script>
-    keys = {
-      0: ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
-      1: ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
-      2: ['z', 'x', 'c', 'v', 'b', 'n', 'm'],
-      length: 3
-    }
-    hash = {
-      q: 'qq.com',
-      w: 'weibo.com'
-    }
-    hashInLocalStorage = JSON.parse(localStorage.getItem('bianjizhi') || 'null')
-    if (hashInLocalStorage) {
-      hash = hashInLocalStorage
-    }
+    //1.初始化数据
+
+    var hashA = init()
+    var keys = hashA['keys']
+    var hash = hashA['hash']
+
+
+    //2.生成键盘
     //遍历 keys,生成kbd标签
-    index = 0
-    while (index < keys['length']) {// 0 1 2
-      div = document.createElement('div')
-      div.className = 'row'
-      main.appendChild(div)
-      row = keys[index]// 第一个数组 第二个数组 第三个数组
-      index2 = 0
-      while(index2< row['length']){// 0-9 0-8 0-6
-        kbd = document.createElement('kbd')
-        span = document.createElement('span')
-        span.textContent = row[index2]
-        span.className = "text"
-        kbd.appendChild(span)
-        kbd.className = 'key'
-        button = document.createElement('button')
-        button.textContent = '编辑'
-        button.id = row[index2]
-        img = document.createElement('img')
-        img.src = 'http://'+hash[row[index2]]+ '/favicon.ico'
-        button.onclick = function(jinahzhi){
-          //jianzhi['target']就是用户点击的元素
-          key = jinahzhi['target']['id']// qwert
-          userWeb = prompt('给我一个网址')
-          hash[key] = userWeb// hash变更 
-          localStorage.setItem('bianjizhi', JSON.stringify(hash))
-          console.log(hash)
-        }
-        kbd.appendChild(img)
-        kbd.appendChild(button)
-        div.appendChild(kbd) 
-        index2 = index2 + 1 
-      }
-      index = index+1
+    generateKeyboard(keys, hash)
+
+    //3.监听用户动作
+    listenToUser(hash)
+
+    //下面是工具函数
+    function getFromLocalStorage(name) {
+      return JSON.parse(localStorage.getItem(name) || 'null')
     }
 
-    document.onkeypress = function(jinahzhi){
-      key = jinahzhi['key']
-      website = hash[key]
-      window.open('http://'+website, '_blank')
+    function tag(tagName) {
+      return document.createElement(tagName)
+    }
+
+    function createSpan(textContent) {
+      var span = tag('span')
+      span.textContent = textContent
+      span.className = "text"
+      return span
+    }
+
+    function createButton(id) {
+      var button = tag('button')
+      button.textContent = '编辑'
+      button.id = id
+      button.onclick = function (jinahzhi) {
+        //jianzhi['target']就是用户点击的元素
+        var button2 = jinahzhi['target']
+        var img2 = button2.previouSibling
+        var key = button2['id'] // qwert
+        var userWeb = prompt('给我一个网址')
+        hash[key] = userWeb // hash变更 
+        img2.src = 'http://' + userWeb + '/favicon.ico'
+        img2.onerror = function (tihuan) {
+          tihuan.target.src = '//i.loli.net/2017/11/10/5a05afbc5e183.png'
+        }
+        localStorage.setItem('bianjizhi', JSON.stringify(hash))
+        console.log(hash)
+      }
+      return button
+    }
+
+    function createImage(domain) {
+      var img = tag('img')
+      if (domain) {
+        img.src = 'http://' + domain + '/favicon.ico'
+      } else {
+        img.src = '//i.loli.net/2017/11/10/5a05afbc5e183.png'
+      }
+      img.onerror = function (tihuan) {
+        tihuan.target.src = '//i.loli.net/2017/11/10/5a05afbc5e183.png'
+      }
+      return img
+    }
+
+    function init() {
+      var keys = {
+        0: ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
+        1: ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
+        2: ['z', 'x', 'c', 'v', 'b', 'n', 'm'],
+        length: 3
+      }
+      var hash = {
+        q: 'qq.com',
+        w: 'weibo.com'
+      }
+      var hashInLocalStorage = getFromLocalStorage('bianjizhi')
+      if (hashInLocalStorage) {
+        hash = hashInLocalStorage
+      }
+      return {
+        "keys": keys, 
+        "hash": hash
+      }
+    }
+
+    function generateKeyboard(keys, hash) {
+      for (var index = 0; index < keys['length']; index = index + 1) {
+        var div = tag('div')
+        div.className = 'row'
+
+        main.appendChild(div)
+
+        var row = keys[index] // 第一个数组 第二个数组 第三个数组
+        for (var index2 = 0; index2 < row['length']; index2 = index2 + 1) {
+          var span = createSpan(row[index2])
+
+
+          var button = createButton(row[index2])
+
+
+          var img = createImage(hash[row[index2]])
+
+          var kbd = tag('kbd')
+          kbd.className = 'key'
+
+          kbd.appendChild(span)
+          kbd.appendChild(img)
+          kbd.appendChild(button)
+
+          div.appendChild(kbd)
+
+        }
+      }
+
+    }
+
+    function listenToUser(hash) {
+      document.onkeypress = function (jinahzhi) {
+        var key = jinahzhi['key']
+        var website = hash[key]
+        window.open('http://' + website, '_blank')
+      }
     }
   </script>
 </body>
+
 </html>
