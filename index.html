@@ -46,18 +46,18 @@
       var button = tag('button')
       button.textContent = '编辑'
       button.id = id
-      button.onclick = function (xzkjcnxlkcjlk) {
-        // xzkjcnxlkcjlk['target'] 就是用户点击的元素
-        var button2 = xzkjcnxlkcjlk['target']
+      button.onclick = function (bianjizhi) {
+        // bianjizhi['target'] 就是用户点击的元素
+        var button2 = bianjizhi['target']
         var img2 = button2.previousSibling
         var key = button2['id'] // q w e r t
         var x = prompt('给我一个网址') // qq.com
         hash[key] = x  // hash 变更
         img2.src = 'http://' + x + '/favicon.ico'
-        img2.onerror = function (xxx) {
-          xxx.target.src = '//i.loli.net/2017/11/10/5a05afbc5e183.png'
+        img2.onerror = function (tihuan) {
+          tihuan.target.src = '//i.loli.net/2017/11/10/5a05afbc5e183.png'
         }
-        localStorage.setItem('zzz', JSON.stringify(hash))
+        localStorage.setItem('jianzhi', JSON.stringify(hash))
       }
       return button
     }
@@ -68,8 +68,8 @@
       } else {
         img.src = '//i.loli.net/2017/11/10/5a05afbc5e183.png'
       }
-      img.onerror = function (xxx) {
-        xxx.target.src = '//i.loli.net/2017/11/10/5a05afbc5e183.png'
+      img.onerror = function (tihuan) {
+        tihuan.target.src = '//i.loli.net/2017/11/10/5a05afbc5e183.png'
       }
       return img
     }
@@ -81,10 +81,10 @@
         'length': 3
       }
       var hash = {
-        'q': 'qq.com', 'w': 'weibo.com', 'e': 'ele.me', 'r': 'renren.com', 't': 'tianya.com', 'y': 'youtube.com', 'u': 'uc.com', 'i': 'iqiyi.com', 'o': 'opera.com', 'p': undefined, 'a': 'acfun.tv', 's': 'sohu.com', 'z': 'zhihu.com', 'm': 'www.mcdonalds.com.cn'
+        'q': 'qq.com', 'w': 'weibo.com', 'e': 'ele.me', 'r': 'sns.renren.com', 't': 'tianya.cn', 'y': 'youdao.com', 'u': 'uc.cn', 'i': 'iqiyi.com', 'o': 'opera.com', 'p': undefined, 'a': 'acfun.cn', 's': 'sohu.com', 'd': 'douyu.com', 'z': 'zhihu.com', 'm': 'meituan.com'
       }
-      // 取出 localStorage 中的 zzz 对应的 hash
-      var hashInLocalStorage = getFromLocalStorage('zzz')
+      // 取出 localStorage 中的 jianzhi 对应的 hash
+      var hashInLocalStorage = getFromLocalStorage('jianzhi')
       if (hashInLocalStorage) {
         hash = hashInLocalStorage
       }
@@ -113,8 +113,8 @@
       }
     }
     function listenToUser(hash) {
-      document.onkeypress = function (xzkjcnxlkcjlk) {
-        var key = xzkjcnxlkcjlk['key'] // q w e
+      document.onkeypress = function (bianjizhi) {
+        var key = bianjizhi['key'] // q w e
         var website = hash[key]
         //location.href = 'http://'+website
         window.open('http://' + website, '_blank')
